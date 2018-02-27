@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片翻面效果</title>
+	<style type="text/css">
+		.box{
+            width:300px;height:272px;
+            margin:50px auto 0;
+            /*设置盒子按3d空间显示*/
+            transform-style:preserve-3d;
+            position:relative;
+        }
+		 .pic{
+            width:300px;height:272px;
+            position:absolute;            
+            left:0;top:0;
+            background-color:cyan;
+       /*perspective设置透视距离,800为经验数字。rotateY图片按Y轴旋转*/
+            transform:perspective(800px) rotateY(0deg);
+       		/*设置盒子背面不可见*/
+            backface-visibility:hidden;
+           /* transition过渡动画，四个值分别为属性、时间、运动方式、延迟*/
+            transition:all 500ms ease;
+        }
+
+        /*先把文字翻转,并设置背面不可见,这样就只能看到图片了*/
+        .back_info{
+            width:300px;height:272px;
+            text-align:center;
+            line-height:272px;
+            background-color:gold;
+            position:absolute;
+            left:0; top:0;
+            transform:rotateY(180deg);
+            backface-visibility:hidden;
+            transition:all 500ms ease;            
+        }
+
+		/*hover时,图片翻转.背面已不可见.让文字显示出来*/
+         .box:hover .pic{
+            transform:perspective(800px) rotateY(180deg);
+        }
+		/*文字翻回*/
+        .box:hover .back_info{
+            transform:perspective(800px) rotateY(0deg);
+        }
+
+	</style>
+</head>
+
+<body>
+	<div class="box">        
+        <div class="pic"><img src="images/location_bg.jpg"></div>
+        <div class="back_info">背面文字说明</div>
+    </div>
+</body>
+</html>

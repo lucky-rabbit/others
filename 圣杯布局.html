@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>圣杯布局</title>
+<style type="text/css">
+    *{margin: 0;padding: 0;}
+    body{min-width: 700px;}
+    .header,
+    .footer{ 
+        border: 1px solid #333;
+        background: #aaa;
+        text-align: center;
+    }
+    .left,
+    .middle,
+    .right{ 
+        position: relative;
+        float: left;
+        min-height: 130px;
+    }
+    .container{
+        padding:0 220px 0 200px;
+        overflow: hidden;
+    }
+    .left{
+        margin-left: -100%;
+        left: -200px;
+        width: 200px;
+        background: red;
+    }
+    .right{
+        margin-left: -220px;
+        right: -220px;
+        width: 220px;
+        background: green;
+    }
+    .middle{ 
+        width: 100%;
+        background: blue;
+        word-break: break-all;
+
+    }
+    .footer{ 
+        clear: both;
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <h4>header</h4>
+</div>
+
+
+
+<!-- 实现过程：
+1、middle部分（width:100%使之自适应）在最前， 然后是left,right。
+2、全都 float:left使之在一行中按顺序排列。再position:relative。
+3、此时middle占满了一行，所以要把left拉到最左边，使用margin-left:-100%。要把right拉到最右边，使用margin-left:-自身width值。
+4、这时left,right会覆盖middle内容的两端，所以在外围container设置左右padding。
+5、还原left,right。使用相对定位 left/right:-左/右padding值   -->
+<div class="container">
+    <div class="middle">
+        <h4>middle</h4>
+        <p>HHHHHHHHHHHHHHHHHHHHHH
+        hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+        HHHHHHHHHHHHHHHHHHHHHH
+        hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+        </p>
+    </div>
+    <div class="left">
+    <h4>left</h4>
+        <p>oooooooooooooo
+        00000000000000000
+        ooooooooooooooo
+        ooooooooooooooo
+        000000000000000</p>
+    </div>
+    <div class="right">
+    <h4>right</h4>
+        <p>BBBBBBBBBBBBBB
+        BBBBBBBBBBBBBBBBBB
+        88888888888888888888</p>
+    </div>
+    </div>
+    <div class="footer">
+        <h4>footer</h4>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>人物走路</title>
+	<style type="text/css">
+		.box{
+            width:120px;height:180px;
+            border:1px solid #ccc;            
+            margin:50px auto 0;
+            position:relative;
+            overflow:hidden;            
+        }
+        .box img{
+            display:block;
+            width:960px;
+            height:182px;
+            position: absolute;
+            left:0;top:0;
+           /* 这里的animation分别为名字 时间 曲线 播放次数*/ 
+            animation:walking 1.0s steps(8) infinite;            
+        }
+
+        /*定义动画名字及方式*/
+        @keyframes walking{
+            from{
+                left:0px;
+            }
+
+            to{
+                left:-960px;
+            }
+        }
+
+
+
+	</style>
+</head>
+<body>
+	<div class="box"><img src="images/walking.png"></div>
+</body>
+</html>

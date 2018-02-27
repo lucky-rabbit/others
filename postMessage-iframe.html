@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>跨域POST消息发送</title>
+<script type="text/JavaScript">
+	//父窗体创建跨域iframe并发送信息
+	function sendPost() {
+		//必须使用iframe的contentWindow属性
+	    var iframeWin = document.getElementById("otherPage").contentWindow;
+	    iframeWin.postMessage( document.getElementById("message").value, "http://bbb.com");
+	}
+
+	window.addEventListener("message", function(e) {
+	    console.log(e, e.data);
+	}, false);
+
+
+	//子窗体接收信息并处理（如发起XMLHttpRequest请求）
+	window.addEventListener("message", function (e) {
+    // 把父窗口发送过来的数据向服务器发送post请求
+    var data = e.data;
+    $.ajax({
+        type: 'POST',
+        data: "info=" + data,
+        dataType: "json"
+    }).done(function (res) {
+        //window.parent可以向父窗体返回结果.这里res是服务器返回的数据
+        window.parent.postMessage(res,"*");
+    }).fail(function (res) {
+        window.parent.postMessage(res, "*");
+    });
+}, false);
+
+</script>
+</head>
+<body>
+<textarea id="message"></textarea>
+<input type="button" value="发送" onclick="sendPost()">
+<iframe src="http://bbb.com" id="otherPage" style="display:none"></iframe>
+</body>
+</html>

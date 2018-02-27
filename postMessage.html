@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+		//发送端
+
+		//在aaa.com窗口打开bbb.com，并发送数据
+		var myPop= window.open('http://bbb.com'）
+		setInterval(function(){
+			//postMessage第一个参数为发送内容，第二个参数为目标源，也可以设为*，表示向所有窗口发送
+			myPop.postMessage('hello,word', 'http://bbb.com');
+		},2000);
+
+		//通过message事件监听消息反馈。message事件对象e有3个属性
+		//e.sourse消息源、e.origin消息源的URI、e.data消息源发送的数据
+		window.addEventListener('message', function(e){
+			//验证数据来源
+			if(e.origin !== 'http://bbb.com') return;
+			console.log('response data:' + e.data);
+		},false);
+
+
+		//接收端
+		window.addEventListener('message', function(e){
+			if(e.origin !=='heep://aaa.com') return;
+			if(e.data == 'hello,word'){
+				e.source.postMessage('ok!', e.origin);
+			}else{
+				console.log(e.data);
+			}
+		},false)
+	</script>
+</head>
+
+<body>
+	
+</body>
+</html>
