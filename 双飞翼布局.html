@@ -53,7 +53,7 @@
 1、middle部分（width:100%使之自适应）在最前， 然后是left,right。
 2、全都 float:left使之在一行中按顺序排列。
 3、此时middle占满了一行，所以要把left拉到最左边，使用margin-left:-100%。要把right拉到最右边，使用margin-left:-自身width值。
-4、给middle内部再加个div，并设置margin左右值为左右盒子的宽度。
+4、给middle内部再加个div，并设置margin左右值为左右盒子的宽度，把文字内容挤在固定区域里，左右留出位置给负margin的左右盒子。整个背景仍是100%。
 -->
     <div class="main">
     <div class="main-inner">
