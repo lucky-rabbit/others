@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+ <html>
+ <head>
+ <title>web Worker计数</title>
+ </head>
+ <body>
+ <div>The result is:<p id="results">please wait, computing … </p></div>
+
+ <!-- 主页面代码 -->
+ <script type="text/javascript">
+ 	//主页面新开一个线程,把复杂计算让子线程执行，主页面不需要等待这个耗时的操作，可以继续进行其它的行为或任务
+   var worker = new Worker('numberworker.js');
+   //向子线程传递消息
+	worker.postMessage("{first:347734080,second:3423744400}");
+	//接收子线程返回值
+   	worker.onmessage = function (e){
+  		document.getElementById('result').textContent = e.data;
+  	};
+ </script>
+
+<!-- 新页面代码 -->
+ <script type="text/javascript">
+ 	//接收主线程传递值
+	onmessage = function (e){
+ 		var first=e.data.first;
+ 		var second=e.data.second;
+ 		calculate(first,second);
+ 	};
+ function calculate(first,second) {
+ 	var common_divisor=divisor(first,second);
+ 	var common_multiple=multiple(first,second);
+ 	//向主线程发送消息
+    postMessage("Work done!"+"The least common multiple is "+common_divisor+" and the greatest common divisor is "+common_multiple);
+ }
+
+ </script>
+</body>

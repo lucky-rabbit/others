@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+    <title>网页换肤</title>
+	<link href="css/default.css" rel="stylesheet" type="text/css" />
+    <link href="css/skin_0.css" rel="stylesheet" type="text/css"  id="cssfile"/>  
+	<script type="text/javascript" src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>	
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>	
+	<script type="text/javascript">
+		
+		$(function(){
+			var $li =$("#skin li");
+			$li.click(function(){
+				// $('#cssfile').attr('href','css/'+this.id+'.css');
+				// $(this).addClass('selected').siblings().removeClass('selected');
+				// //设置cookie
+				// $.cookie('mySkin',this.id);
+
+				switchSkin( this.id );
+
+			});
+			var cookie_skin = $.cookie( "mySkin");
+			if (cookie_skin) {
+				// $('#'+cookie_skin).addClass('selected').siblings().removeClass('selected');
+				// $('#cssfile').attr('href','css/'+cookie_skin+'.css');
+				// $.cookie('mySkin',cookie_skin);
+
+				switchSkin( cookie_skin );
+			}
+		});
+		function switchSkin(skinName){
+				 $("#"+skinName).addClass("selected")                
+							  .siblings().removeClass("selected");  
+				$("#cssfile").attr("href","css/"+ skinName +".css"); 
+				$.cookie( "MyCssSkin" ,  skinName );
+		}
+
+		
+	</script>
+</head>
+<body>
+    <ul id="skin">
+		<li id="skin_0" title="灰色" class="selected">灰色</li>
+		<li id="skin_1" title="紫色">紫色</li>
+		<li id="skin_2" title="红色">红色</li>
+		<li id="skin_3" title="天蓝">天蓝</li>
+		<li id="skin_4" title="橙色">橙色</li>
+		<li id="skin_5" title="淡绿">淡绿</li>
+	</ul>
+
+    <div id="div_side_0">
+		<div id="news">
+		    <h1 class="title">时事</h1>
+		</div>
+    </div>
+
+    <div id="div_side_1">
+		<div id="game">
+			<h1 class="title">娱乐</h1>
+		</div>
+    </div>
+    
+</body>
+</html>

@@ -5,14 +5,12 @@
 	<title>Document</title>
 	<script type="text/javascript">
 		//发送端
-
 		//在aaa.com窗口打开bbb.com，并发送数据
 		var myPop= window.open('http://bbb.com'）
 		setInterval(function(){
 			//postMessage第一个参数为发送内容，第二个参数为目标源，也可以设为*，表示向所有窗口发送
 			myPop.postMessage('hello,word', 'http://bbb.com');
 		},2000);
-
 		//通过message事件监听消息反馈。message事件对象e有3个属性
 		//e.sourse消息源、e.origin消息源的URI、e.data消息源发送的数据
 		window.addEventListener('message', function(e){
@@ -20,7 +18,6 @@
 			if(e.origin !== 'http://bbb.com') return;
 			console.log('response data:' + e.data);
 		},false);
-
 
 		//接收端
 		window.addEventListener('message', function(e){
@@ -32,9 +29,43 @@
 			}
 		},false)
 	</script>
+
+	<!-- iframe框架时ajax异步请求，并向父窗体传递响应信息 -->
+	<script type="text/JavaScript">
+	//父窗体创建跨域iframe并发送信息
+	function sendPost() {
+		//必须使用iframe的contentWindow属性
+	    var iframeWin = document.getElementById("otherPage").contentWindow;
+	    iframeWin.postMessage( document.getElementById("message").value, "http://bbb.com");
+	}
+
+	window.addEventListener("message", function(e) {
+	    console.log(e, e.data);
+	}, false);
+
+
+	//子窗体接收信息并处理（如发起XMLHttpRequest请求）
+	window.addEventListener("message", function (e) {
+    // 把父窗口发送过来的数据向服务器发送post请求
+    var data = e.data;
+    $.ajax({
+        type: 'POST',
+        data: "info=" + data,
+        dataType: "json"
+    }).done(function (res) {
+        //window.parent可以向父窗体返回结果.这里res是服务器返回的数据
+        window.parent.postMessage(res,"*");
+    }).fail(function (res) {
+        window.parent.postMessage(res, "*");
+    });
+}, false);
+
+</script>
 </head>
 
 <body>
-	
+	<textarea id="message"></textarea>
+	<input type="button" value="发送" onclick="sendPost()">
+	<iframe src="http://bbb.com" id="otherPage" style="display:none"></iframe>
 </body>
 </html>
