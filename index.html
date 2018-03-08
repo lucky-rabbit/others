@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简要作品列表</title>
+	
+	
+	<style type="text/css">
+		body{
+			font-family:'Microsoft Yahei';
+		}
+		body,ul{
+			margin:0px;
+			padding:0px;
+		}
+		
+		ul{list-style:none;}
+
+
+		.menu{
+			width:200px;
+			margin:50px auto 0;		
+		}
+
+		.menu .level1,.menu li ul a{
+			display:block;
+			width:200px;
+			height:50px;
+			line-height:50px;
+			text-decoration:none;
+			background-color:#3366cc;
+			color:#fff;
+			font-size:16px;
+			text-indent:10px;			
+		}
+
+		.menu .level1{
+			border-bottom:1px solid #afc6f6;
+			
+		}
+
+		.menu li ul a{
+			font-size:14px;
+			text-indent:20px;
+			background-color:#7aa1ef;
+					
+		}
+
+		.menu li ul li{
+			border-bottom:1px solid #afc6f6;
+		}
+
+		
+
+		.menu li ul{
+			display:none;
+		}
+
+
+		.menu li ul li a:hover{
+			background-color:#f6b544;
+		}
+
+
+	</style>
+	
+	<script type="text/javascript" src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.level1').click(function() {				
+				$(this).next().slideToggle();
+			});			
+		});
+
+	</script>
+</head>
+<body>
+	<ul class="menu">
+		<li>
+			<a href="#" class="level1">内容展示常用代码</a>
+			<ul>
+				<li><a href="./todolist-jQuery.html">todolist</a></li>
+				<li><a href="./jquery选项卡.html">选项卡</a></li>
+				<li><a href="./网页换肤.html">网页换肤并设置cookie</a></li>
+				<li><a href="./ajax聊天室.html">ajax聊天室代码</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#" class="level1">常用图片相关代码</a>
+			<ul>
+				<li><a href="./手风琴图片效果.html">手风琴图片</a></li>
+				<li><a href="./视频展示效果.html">视频展示效果</a></li>
+				<li><a href="./css3-animation动画.html">css3-animation动画</a></li>
+				<li><a href="css3-transform变换.html">css3-transform变换</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#" class="level1">移动端demo</a>
+			<ul>
+				<li><a href="./手机滑动删除.html">zepto 手机滑动删除</a></li>
+				<li><a href="./jQueryUI滑动条.html">jQueryUI 滑动条</a></li>
+				<li><a href="./弹性盒模型菜单.html">弹性盒菜单</a></li>				
+			</ul>
+		</li>
+		<li>
+			<a href="#" class="level1">css相关布局</a>
+			<ul>
+				<li><a href="./圣杯布局.html">圣杯布局</a></li>
+				<li><a href="./双飞翼布局.html">双飞翼布局</a></li>
+				<li><a href="./列表两端对齐.html">列表两端对齐</a></li>
+				<li><a href="./移动端布局大框架.html">移动端布局大体框架</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#" class="level1">综合案例及H5一些伪码</a>
+			<ul>
+				<li><a href="./bootstrap-index.html">bootstrap仿站</a></li>
+				<li><a href="./rem-index.html">rem布局仿站</a></li>
+				<li><a href="./postMessage.html">H5 postMessage伪码</a></li>
+				<li><a href="./webWork.html">H5 webWork伪码</a></li>
+			</ul>
+		</li>
+		
+	</ul>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>滑动条</title>
+	<script type="text/javascript" src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+	<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.dragbar').draggable({
+				//限制横轴拖动
+				axis:'x',
+				//限制在父级范围内拖动
+				containment:'parent',
+				//拖动时透明度为0.6
+				opacity:0.6,
+				//ui为内置对象
+				drag:function(ev,ui){
+					//console.log(ui.position.left);
+					//拖动的距离					
+					var pst = ui.position.left;
+					$('.progress').css({width: pst});
+					$('.slide_count').val(parseInt(pst*100/570));				
+				}									
+			});
+		})
+	</script>
+	<style type="text/css">
+		.slidebar_con{
+			width:650px;
+			height:32px;
+			margin:50px auto 0;
+		}
+
+		.slidebar{
+			width:600px;
+			height:30px;
+			border:1px solid #ccc;			
+			float:left;
+			position:relative;
+		}
+
+		.slidebar .dragbar{
+			width:30px;
+			height:30px;
+			background-color:gold;
+			cursor:pointer;
+			position:absolute;
+			left:0;
+			top:0;
+		}
+
+		.slidebar .progress{
+			width:0px;
+			height:30px;
+			background-color:#f0f0f0;
+			position:absolute;
+			left:0;
+			top:0;
+		}
+
+		.slide_count{
+			padding:0;
+			float:right;
+			width:40px;
+			height:30px;
+			border:1px solid #ccc;
+			text-align:center;
+			font-size:16px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="slidebar_con">
+		<div class="slidebar">
+			<div class="progress"></div>
+			<div class="dragbar"></div>
+		</div>
+		<input type="text" name="" value="0" class="slide_count">
+	</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+		body{
+		   margin:0;
+		   padding:0;
+		   font-size:12px;
+		}
+		#messagewindow {
+			height: 250px;
+			border: 1px solid;
+			padding: 5px;
+			overflow: auto;
+		}
+		#wrapper {
+			margin: auto;
+			width: 438px;
+		}
+	</style>
+	<script type="text/javascript" src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+	<script type="text/javascript">
+		$(function(){
+			// 1、进入聊天室，加载页面向服务器取出数据显示
+			// 1.1、初始化客户端时间戳，取此时间后服务器端的数据添加。每次以服务器响应回数据的时间戳来赋值更新
+			timestamp = 0;
+			// 1.2、更新聊天室页面。因为需要定期更新，开启定时器，所以封装成函数。
+			// 此函数是以初始化时间戳为data的ajax异步请求，并处理响应数据
+			updateMsg();
+
+			// 2、ajax异步请求表单提交
+			$("#chatform").submit(function(){
+				$.post("backend.php",{
+							message: $("#msg").val(),
+							name: $("#author").val(),
+							action: "postmsg",
+							// 传入时间戳，取此时间后服务器端的数据添加
+							time: timestamp
+						}, function(xml) {
+					// 清空信息文本框内容
+					$("#msg").val("");
+					// 处理响应数据。封装成函数是因为1.2处也要调用
+					addMessages(xml);
+				});
+				return false; //阻止表单提交
+			});
+		});
+
+		// 页面更新函数
+		function updateMsg(){
+			$.post("backend.php",{ time: timestamp }, function(xml) {
+				//移除掉 等待提示
+				$("#loading").remove();
+				//调用此函数处理响应数据
+				addMessages(xml);
+			});
+			 //每隔4秒，读取一次.
+			setTimeout('updateMsg()', 4000);
+		}
+
+		// 响应数据处理函数
+		function addMessages(xml) {
+			//服务器规定了status。1，响应，2，终止
+			if($("status",xml).text() == "2") return;
+			//拿到服务器时间戳，并赋值给客户端，下次的ajax异步请求就以此时间为准
+			timestamp = $("time",xml).text();
+			//$.each循环响应数据
+			$("message",xml).each(function() {
+			    var author = $("author",this).text(); //发布者
+				var content = $("text",this).text();  //内容
+				var htmlcode = "<strong>"+author+"</strong>: "+content+"<br />";
+				$("#messagewindow").prepend( htmlcode ); //添加到文档中
+			});
+		}
+	
+	</script>
+	
+</head>
+<body>
+
+	<div id="wrapper">
+		<p id="messagewindow"><span id="loading">加载中...</span></p>
+		<form id="chatform" action="#">
+			姓名： <input type="text" id="author" size="50"/><br />
+			内容： <input type="text" id="msg"  size="50"/>   <br /> 
+			<input type="submit" value="发送" /><br />
+		</form>
+	</div>
+
+</body>
+</html>

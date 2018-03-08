@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移动端布局大框架</title>
+	<style type="text/css">
+		/*外部容器绝对定位，贴齐屏幕四周*/
+		.wrap{
+			position: absolute;
+			top: 0; bottom: 0; left: 0; right: 0;
+		}
+		/*头部只用设置高度（块元素，宽高会继承父级）。按照文档流，会自动排在最上方*/
+		.top{
+			height: 50px;
+			background-color: green;
+		}
+		/*中间部分需要左右贴齐屏幕，上下贴齐头底。因此绝对定位左右0，上下为头底高度。并设置overflow-x: hidden; overflow-y: auto;上下滚动*/
+		.mid{
+			position: absolute;
+			left: 0; right: 0; top: 50px; bottom: 50px; 
+			overflow-x: hidden; overflow-y: auto;
+			background-color: gold;
+		}
+		/*由于中间部分定位后已悬浮脱离了文档流，所以底部再按文档流就不是贴在最下方了，而是会补位贴齐头部。必须定位左0底0，同时由于定位后自动转为行内块，宽高由内容决定，所以需设置width:100%*/
+		.bottom{
+			position: absolute;
+			left: 0; bottom: 0; 
+			background-color: grey;
+			width:100%; height:50px;
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="top"></div>
+		<div class="mid"></div>
+		<div class="bottom"></div>		
+	</div>
+</body>
+</html>

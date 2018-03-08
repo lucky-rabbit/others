@@ -14,7 +14,7 @@
         text-align: center;
     }
     .left,
-    .middle,
+    .container
     .right{ 
         position: relative;
         float: left;
@@ -58,7 +58,7 @@
 1、middle部分（width:100%使之自适应）在最前， 然后是left,right。
 2、全都 float:left使之在一行中按顺序排列。再position:relative。
 3、此时middle占满了一行，所以要把left拉到最左边，使用margin-left:-100%。要把right拉到最右边，使用margin-left:-自身width值。
-4、这时left,right会覆盖middle内容的两端，所以在外围container设置左右padding。
+4、这时left,right会覆盖middle内容的两端，所以在外围container设置左右padding值为此两个盒子的宽度。
 5、还原left,right。使用相对定位 left/right:-左/右padding值   -->
 <div class="container">
     <div class="middle">
