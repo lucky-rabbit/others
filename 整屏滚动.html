@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>整页滚动</title>
+	<link rel="stylesheet" type="text/css" href="css/test.css">
+	<script type="text/javascript" src='https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+	<script src="https://cdn.bootcss.com/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript">
+
+
+	// 基本原理：对图片和文字设计2套样式，初始时先分别放在左右隐藏，滑动时再增加样式让他们回到正确位置
+
+		$(function(){
+			//可视区高度
+			var $h = $(window).height();
+			//每一屏的容器
+			var $pages = $('.pages');
+			//重置每一屏的高度为可视区高度
+			$pages.css({height:$h});
+			//右边的小圆点
+			var $points = $('.points li');
+			var nowscreen = 0;
+			var timer = null;
+			//进入时给第一屏增加样式，使图像和文字就需要回到正确位置上
+			$pages.eq(0).addClass('moving');
+
+			//第二个参数dat是mousewheel自动传入的数字，1表示向上滑，-1表示向下滑
+			$(window).mousewheel(function(ev,dat){
+				//mousewheel是高频触发事件，需要开setTimeout定时器延迟会，再一进入滑动时就清理，来实现函数截流
+				clearTimeout(timer);
+
+				timer = setTimeout(function(){
+				//这样后，nowscreen就是当前屏的index
+				if(dat==-1){
+					nowscreen++;
+					//限制++范围，不能超过length
+					if(nowscreen>($pages.length-1)){				
+						nowscreen=$pages.length-1
+					}
+				}
+				else{				
+					nowscreen--;
+					//限制--范围，不能小于0
+					if(nowscreen<0){				
+						nowscreen=0;
+					}
+				}				
+				//滑动时只要最外部容器往上运动
+				$('.pages_con').animate({top:-nowscreen*$h},300);
+				//滑动时给当前屏增加样式，使图像和文字就需要回到正确位置上
+				$pages.eq(nowscreen).addClass('moving').siblings().removeClass('moving');
+				//滑动时让右边小圆点也随着变化
+				$points.eq(nowscreen).addClass('active').siblings().removeClass('active');
+				},200)				
+ 
+			})
+			//点击小圆点，每屏相应变化
+			$points.click(function(event) {
+				var nowindex = $(this).index();
+				$('.pages_con').animate({top:-nowindex*$h},300);
+				$pages.eq(nowindex).addClass('moving').siblings().removeClass('moving');
+				$(this).addClass('active').siblings().removeClass('active');
+			});
+		})
+
+	</script>	
+</head>
+<body>
+	<div class="pages_con">
+
+		<div class="pages page1">
+			<div class="main_con">
+				<div class="left_img"><img src="images/001.png"></div>
+				<div class="right_info">
+				？？？？ 经济学院毕业，金融+财管双学位出身，这也要干程序猿？你是在逗我？？！！！  还号称自学了不少？来来来，JavaScript知道吧？好，谈一下和Java有何关系。				
+				</div>
+			</div>
+		</div>
+
+		<div class="pages page2">
+			<div class="main_con">
+				<div class="right_img"><img src="images/002.png"></div>
+				<div class="left_info">
+				<p>老板，你这样不按常规出牌就不对了。。。</p>	
+				<p>我，本人，精通JavaScript。。。当然是不可能的，熟悉，啊，熟悉还是可以说说的。像作用域啊、闭包啊、原型啊、eventloop什么的基础原理还是略知一二的(＾Ｕ＾)ノ~</p>
+				<p>响应式、rem式等常用页面布局是可以写的。</p>
+				<p>jQuery/zepto、bootstrap、swiper这样的常用基础库和框架当然是熟练使用喏。</p>
+				<p>ajax、jsonp什么的常用技术大概也问题不大。</p>
+				<p>还有身为90后，不会PS能行？？来张效果图，分分钟大卸八块。</p>
+				<p>至于三大框架的实现及原理、工程化等等前沿技术么，当然。。不会了。。要是连这样的都会的话，早就迎娶白富美，登上人生巅峰了o(╥﹏╥)o</p>
+				
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="pages page3">
+			<div class="main_con">
+				<div class="left_img"><img src="images/004.png"></div>
+				<div class="right_info">
+				<p>哟，好像还蛮吊的样子啊。有本事出来走两步啊。</p>
+				<p>哼╭(╯^╰)╮，让走就走多没面子。不过前言万语，可以化作一行URL。</p>
+				<p><a href="https://lucky-rabbit.github.io/others/">相关小作品地址(点击进入)</a></p>
+				<p><a href="https://github.com/lucky-rabbit/others">相关小作品github仓库地址(点击进入)</a></p>
+				<p><a href="www.pytutu.cc">对哦，突然想起好像还用Django框架搭建过博客，虽然没写啥东西。。但也是作品不是。。(点击进入)</a> </p>
+				<p><a href="https://github.com/lucky-rabbit/blogproject">博客github仓库地址(点击进入)</a></p>	
+				</div>
+			</div>			
+		</div>
+
+		<div class="pages page4">
+			<div class="main_con">
+				<div class="left_img"><img src="images/003.png"></div>
+				<div class="right_info">
+					<p>好了，就是你了。下周来上班。好好干，看好你哟。哦，对了，你要多少钱啊？</p>
+					
+					<p>这个。。老板，谈钱就俗了不是。主要是提升姿势水平才对嘛。至于钱嘛，让我这个大龄单身男青年活得下去就大差不差了。好说好说。</p>
+					
+					<p>兄der啊，现在像你这样实诚的人儿不多了啊，啥也不说了，拾掇拾掇，明天就来上班！</p>
+				</div>
+			</div>			
+		</div>
+
+		<div class="pages page5">
+			<div class="main_con">
+				<div class="center_img"><img src="images/005.png"></div>
+				<h3>谢谢观看，请多指教</h3>	
+			</div>
+			
+		</div>
+	</div>
+	<ul class="points">
+		<li class="active"></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</body>
+</html>
