@@ -1,6 +1,10 @@
-body,ul{
+body,ul,p{
 	margin:0;
 	padding:0;
+}
+
+a{
+	text-decoration: none;
 }
 
 ul{list-style:none;}
@@ -102,7 +106,7 @@ ul{list-style:none;}
 
 
 .main_con .right_img{
-	width:522px;
+	width:500px;
 	height:400px;
 	float:right;
 	position:relative;
@@ -110,16 +114,16 @@ ul{list-style:none;}
 	opacity:0;
 	filter:alpha(opacity=0);
 	transition:all 1000ms ease 300ms;
+	margin-right: -65px;
 }
 
 .main_con .left_info{
-	width:350px;
+	width:425px;
 	height:300px;
-	margin-top:50px;
 	float:left;
 	font-family:'Microsoft Yahei';
-	font-size:20px;
-	line-height:50px;
+	font-size:17px;
+	line-height:33px;
 	color:#666;
 	text-indent:2em;
 	text-align:justify;
@@ -128,6 +132,7 @@ ul{list-style:none;}
 	opacity:0;
 	filter:alpha(opacity=0);
 	transition:all 1000ms ease 300ms;
+	margin-top: -40px;
 }
 
 
@@ -166,5 +171,4 @@ ul{list-style:none;}
 	opacity:1;
 	filter:alpha(opacity=100);
 }
-
 
