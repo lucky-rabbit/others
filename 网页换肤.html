@@ -28,15 +28,15 @@
 
 				switchSkin( cookie_skin );
 			}
-		});
+		
 		function switchSkin(skinName){
 				 $("#"+skinName).addClass("selected")                
 							  .siblings().removeClass("selected");  
 				$("#cssfile").attr("href","css/"+ skinName +".css"); 
-				$.cookie( "MyCssSkin" ,  skinName );
+				$.cookie( "mySkin" ,  skinName );
 		}
 
-		
+	})
 	</script>
 </head>
 <body>
